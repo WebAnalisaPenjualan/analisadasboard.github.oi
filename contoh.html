@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Analisis Penjualan</title>
+  <!-- Gunakan font modern -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jQuery untuk AJAX dan interaksi DOM -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    /* ====== Style Dasar dan Reset ====== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* ====== Header dan Navigation ====== */
+    header {
+      background: linear-gradient(135deg, #1a237e, #3949ab);
+      color: #fff;
+      padding: 1rem;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar h1 {
+      font-size: 1.5rem;
+    }
+    /* ====== Layout Main ====== */
+    main {
+      padding: 1rem 2rem;
+    }
+    /* ====== Summary Cards / Widget KPI ====== */
+    .summary-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1a237e;
+    }
+    /* ====== Filter Section ====== */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .filters select, .filters input[type="range"] {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      min-width: 150px;
+      transition: border-color 0.3s;
+    }
+    .filters select:focus, .filters input[type="range"]:focus {
+      border-color: #1a237e;
+      outline: none;
+    }
+    /* ====== Chart Section ====== */
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    canvas {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    /* ====== Data Table Section ====== */
+    .data-table {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    table thead {
+      background-color: #3949ab;
+      color: #fff;
+    }
+    table th, table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+    /* ====== Responsif ====== */
+    @media (max-width: 768px) {
+      .navbar h1 {
+        font-size: 1.2rem;
+      }
+      .filters {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header dengan Navbar -->
+  <header>
+    <div class="navbar">
+      <h1>Dashboard Penjualan</h1>
+      <!-- Tambahkan hamburger menu untuk mobile jika diperlukan -->
+      <div class="menu-mobile">☰</div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Widget / KPI Summary Cards -->
+    <section class="summary-cards">
+      <div class="card">
+        <h2>Laba Bersih</h2>
+        <p>Rp 50.000.000</p>
+      </div>
+      <div class="card">
+        <h2>Rasio Diskon</h2>
+        <p>12%</p>
+      </div>
+      <div class="card">
+        <h2>Subsidi</h2>
+        <p>Rp 5.000.000</p>
+      </div>
+      <div class="card">
+        <h2>Target Tercapai</h2>
+        <p>85%</p>
+      </div>
+    </section>
+
+    <!-- Filter Data -->
+    <section class="filters">
+      <select id="filter-bulan">
+        <option value="">Pilih Bulan</option>
+        <option value="1">Januari</option>
+        <option value="2">Februari</option>
+        <!-- Tambah opsi bulan lainnya -->
+      </select>
+      <select id="filter-cabang">
+        <option value="">Pilih Cabang</option>
+        <!-- Data cabang diisi dinamis -->
+      </select>
+      <select id="filter-supervisor">
+        <option value="">Pilih Supervisor</option>
+        <!-- Data supervisor diisi dinamis -->
+      </select>
+      <div>
+        <label for="slider-range">Rentang Penjualan:</label>
+        <input type="range" id="slider-range" min="0" max="100" step="1">
+      </div>
+    </section>
+
+    <!-- Grafik Penjualan -->
+    <section class="charts">
+      <canvas id="chart-penjualan"></canvas>
+      <canvas id="chart-tren"></canvas>
+      <!-- Tambah grafik lain seperti pie chart jika diperlukan -->
+    </section>
+
+    <!-- Tabel Data Penjualan -->
+    <section class="data-table">
+      <table id="table-data">
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Produk</th>
+            <th>Penjualan Aktual</th>
+            <th>Target</th>
+            <th>Diskon</th>
+            <th>Subsidi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data akan diisi secara dinamis dari Google Sheets -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- JavaScript untuk interaksi, Chart.js dan ambil data dari Google Sheets -->
+  <script>
+    $(document).ready(function() {
+      // Fungsi untuk mengambil data dari Google Sheets via API atau Google Apps Script
+      function getDataFromSheet() {
+        // Ganti URL berikut dengan endpoint Google Sheets atau Apps Script yang valid
+        const sheetUrl = 'YOUR_GOOGLE_SHEETS_API_URL';
+        $.getJSON(sheetUrl, function(response) {
+          // Proses response dan update:
+          // - Tabel data
+          // - Grafik dengan Chart.js
+          // - KPI summary cards jika diperlukan
+          console.log(response);
+          // Contoh: updateTabel(response.data);
+          // updateCharts(response.data);
+        }).fail(function() {
+          console.error('Gagal mengambil data dari Google Sheets.');
+        });
+      }
+
+      // Inisialisasi grafik dengan Chart.js
+      const ctxPenjualan = document.getElementById('chart-penjualan').getContext('2d');
+      const chartPenjualan = new Chart(ctxPenjualan, {
+        type: 'bar',
+        data: {
+          labels: [], // Misal: nama bulan
+          datasets: [{
+            label: 'Penjualan Aktual',
+            data: [], // Data diisi dinamis
+            backgroundColor: 'rgba(26, 35, 126, 0.7)',
+            borderRadius: 10,
+            hoverBackgroundColor: 'rgba(63, 81, 181, 0.8)'
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: {
+            duration: 1500
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return 'Rp ' + context.parsed.y;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // Contoh grafik tren (line chart)
+      const ctxTren = document.getElementById('chart-tren').getContext('2d');
+      const chartTren = new Chart(ctxTren, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [{
+            label: 'Tren Penjualan',
+            data: [],
+            fill: false,
+            borderColor: '#4caf50',
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: {
+            duration: 1500
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return 'Rp ' + context.parsed.y;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // Panggil fungsi untuk mengambil data pertama kali
+      getDataFromSheet();
+
+      // Event listener untuk filter (dropdown, slider)
+      $('.filters select, .filters input[type="range"]').on('change', function() {
+        // Dapatkan nilai filter yang dipilih
+        const bulan = $('#filter-bulan').val();
+        const cabang = $('#filter-cabang').val();
+        const supervisor = $('#filter-supervisor').val();
+        const range = $('#slider-range').val();
+
+        // Update data tabel dan grafik sesuai filter
+        // Misal: getDataFromSheet(bulan, cabang, supervisor, range);
+        console.log('Filter berubah:', bulan, cabang, supervisor, range);
+      });
+
+      // Tambahan: fungsi untuk mengupdate tabel dan charts bisa ditambahkan di sini.
+    });
+  </script>
+</body>
+</html>

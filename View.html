@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>View Data Auditor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1, h2 {
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #2b382c; /* Warna tombol */
+      color: #fff;
+    }
+    button:hover {
+      background-color: #7c8a7d; /* Warna hover tombol */
+    }
+  </style>
+</head>
+<body>
+  <h1>Data Pemeriksaan Audit</h1>
+  <!-- Tabel Data Umum -->
+  <table>
+    <thead>
+      <tr>
+        <th>Nama KAP</th>
+        <th>Nama AP</th>
+        <th>Nama Klien</th>
+        <th>Alamat Klien</th>
+        <th>Nama Cabang</th>
+        <th>Alamat Cabang</th>
+        <th>Tahun Buku</th>
+        <th>tipe Pemeriksaan</th>
+        <th>Jenis pemeriksaan</th>
+        <th>Standar Audit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="kap"></td>
+        <td id="ap"></td>
+        <td id="namaKlien"></td>
+        <td id="alamatKlien"></td>
+        <td id="namaCabang"></td>
+        <td id="alamatCabang"></td>
+        <td id="tahunBuku"></td>
+        <td id="tipePemeriksaan"></td>
+        <td id="jenisPemeriksaan"></td>
+        <td id="standarAudit"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Tabel Susunan Tim Pemeriksa -->
+  <h2>Susunan Tim Pemeriksa</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nama Pemeriksa</th>
+        <th>Peran</th>
+      </tr>
+    </thead>
+    <tbody id="timBody">
+      <!-- Baris untuk setiap pemeriksa akan ditambahkan di sini -->
+    </tbody>
+  </table>
+
+  <!-- Tombol kembali ke halaman home.html (ubah sesuai kebutuhan) -->
+  <button id="backBtn">Back to Home</button>
+
+  <script>
+    // Ambil data dari localStorage saat halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      var data = localStorage.getItem('formData');
+      if (data) {
+        data = JSON.parse(data);
+
+        // Tampilkan data umum
+        document.getElementById('kap').textContent          = data.kap            || '';
+        document.getElementById('ap').textContent           = data.ap             || '';
+        document.getElementById('namaKlien').textContent    = data.namaKlien      || '';
+        document.getElementById('alamatKlien').textContent  = data.alamatKlien    || '';
+        document.getElementById('namaCabang').textContent   = data.namaCabang     || '';
+        document.getElementById('alamatCabang').textContent = data.alamatCabang   || '';
+        document.getElementById('tahunBuku').textContent    = data.tahunBuku      || '';
+        document.getElementById('tipePemeriksaan').textContent   = data.tipePemeriksaan     || '';
+        document.getElementById('jenisPemeriksaan').textContent  = data.jenisPemeriksaan     || '';
+        document.getElementById('standarAudit').textContent = data.standarAudit   || '';
+
+        // Tampilkan susunan tim pemeriksa (setiap pemeriksa di baris terpisah)
+        if (data.tim && Array.isArray(data.tim)) {
+          var timBody = document.getElementById('timBody');
+          data.tim.forEach(function(member) {
+            var row = document.createElement('tr');
+
+            var cellNama = document.createElement('td');
+            cellNama.textContent = member.nama || '';
+
+            var cellPeran = document.createElement('td');
+            cellPeran.textContent = member.peran || '';
+
+            row.appendChild(cellNama);
+            row.appendChild(cellPeran);
+            timBody.appendChild(row);
+          });
+        }
+      }
+    });
+
+    // Event untuk tombol "Back to Home"
+    document.getElementById('backBtn').addEventListener('click', function() {
+      window.location.href = 'home.html'; // Sesuaikan dengan file/URL home Anda
+    });
+  </script>
+</body>
+</html>

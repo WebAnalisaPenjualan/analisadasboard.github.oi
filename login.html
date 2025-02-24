@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Aplikasi Modern</title>
+  <!-- Google Fonts untuk tampilan modern -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Welcome Overlay dengan Logo dan Kalimat Menarik */
+    #welcome-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1100; /* Selalu di atas login container */
+      animation: fadeOut 1s ease-out forwards;
+      animation-delay: 6s; /* Overlay tampil selama 6 detik */
+    }
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+    .welcome-content {
+      text-align: center;
+    }
+    .welcome-logo {
+      max-width: 150px;
+      margin-bottom: 20px;
+    }
+    #welcome-text {
+      font-size: 1.5rem;
+      color: #333;
+      padding: 10px 20px;
+      border: 2px solid #764ba2;
+      border-radius: 12px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Login Container (Sidebar) */
+    .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 350px;
+      height: 100vh;
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 0 12px 12px 0;
+      box-shadow: 4px 0 25px rgba(0,0,0,0.1);
+      z-index: 500; /* Di bawah overlay selama animasi */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Logo di atas form login */
+    .login-logo {
+      display: block;
+      max-width: 120px;
+      margin: 0 auto 20px; /* center dan spasi bawah */
+    }
+
+    .login-container h2 {
+      margin-bottom: 10px;
+      font-size: 1.75rem;
+      font-weight: 500;
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #667eea;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: #667eea;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .login-btn:hover {
+      background: #556cd6;
+    }
+    .footer-text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    /* Container teks di samping (kanan) */
+    .content-container {
+      margin-left: 350px; /* sisakan ruang 350px untuk sidebar */
+      width: calc(100% - 350px);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .content-box {
+      max-width: 600px;
+      background: rgba(255,255,255,0.15);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      backdrop-filter: blur(5px);
+    }
+    .content-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .content-box p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Overlay -->
+  <div id="welcome-overlay">
+    <div class="welcome-content">
+      <img src="logo.png" alt="Logo" class="welcome-logo">
+      <p id="welcome-text">Selamat datang di aplikasi kami!</p>
+    </div>
+  </div>
+  
+  <!-- Login Container (Sidebar) -->
+  <div class="login-container">
+    <!-- Logo di atas login -->
+    <img src="logo.png" alt="Logo" class="login-logo">
+    <h2>Login</h2>
+    <form id="loginForm" action="index.html" method="post">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="admin" required>
+      </div>
+      <div class="form-group password-wrapper">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="button" class="toggle-password" onclick="togglePassword()">👁</button>
+      </div>
+      <button type="submit" class="login-btn">Sign In</button>
+    </form>
+    <p class="footer-text">&copy; 2025 - Silahkan login dengan memasukkan password Anda</p>
+  </div>
+
+  <!-- Konten di samping (kanan) -->
+  <div class="content-container">
+    <div class="content-box">
+      <h2>The Importance of Transparency and Accountability in Corporate Governance</h2>
+      <p>ControlTrack  adalah aplikasi audit yang membantu auditor dalam melakukan pemeriksaan dan penilaian kinerja perusahaan. 
+	  Aplikasi ini dapat membantu dalam berbagai aspek, seperti keuangan, operasional, akuntansi, dan sumber daya manusia</p>
+      <p><strong>Versi 1 By Agung Samodra SE</strong></p>
+    </div>
+  </div>
+
+  <script>
+    // Fungsi untuk toggle tampilan password
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password';
+    }
+    // Validasi password sebelum form disubmit
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      const passwordInput = document.getElementById("password");
+      if (passwordInput.value !== "123") {
+        event.preventDefault();
+        alert("Password salah. Silahkan coba lagi.");
+      }
+    });
+    // Rotasi kalimat perkenalan pada welcome overlay
+    window.addEventListener('DOMContentLoaded', function() {
+      const phrases = [
+        "Selamat datang di aplikasi kami!",
+        "Mulailah petualangan Anda dengan cara yang mudah dan aman.",
+        "Temui pengalaman digital yang revolusioner.",
+        "Bersama kami, masa depan lebih cerah!",
+        "Koneksikan diri Anda dengan solusi modern."
+      ];
+      let current = 0;
+      const welcomeText = document.getElementById("welcome-text");
+      setInterval(function() {
+        current = (current + 1) % phrases.length;
+        welcomeText.innerText = phrases[current];
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

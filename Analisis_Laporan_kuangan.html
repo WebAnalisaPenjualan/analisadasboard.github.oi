@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisis Laporan Keuangan</title>
+  <style>
+    /* Hilangkan margin body agar topbar bisa menempel di atas */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; /* Hapus margin 90px */
+      background-color: #f9f9f9;
+      position: relative;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: fixed;    /* Agar menempel di atas saat di-scroll */
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #e0e0e0;
+      height: 60px;
+      border-bottom: 1px solid #ccc;
+      z-index: 999;       /* Supaya berada di atas elemen lain */
+    }
+
+    .topbar .logo-left {
+      height: 75px;
+      width: auto;
+      position: absolute;
+      left: 1px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .topbar .title-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #0f0000;
+    }
+
+    .title-container h1 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .title-container p {
+      margin: 0;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    /* Tombol Back */
+    .back-button {
+      position: fixed;   /* Biar tetap di kiri atas */
+      top: 70px;         /* Di bawah topbar */
+      left: 20px;
+      z-index: 999;
+    }
+    .back-button a {
+      text-decoration: none;
+    }
+    .back-button button {
+      font-size: 14px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #212923;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .back-button button:hover {
+      background-color: #ceddd0;
+    }   
+
+    /* Wrapper untuk konten utama */
+    .main-content {
+      padding-top: 80px; /* Beri jarak >= tinggi topbar agar konten tidak tertutup */
+      margin: 0 20px;    /* Jika ingin memberi ruang kiri/kanan */
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      table-layout: fixed;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background-color: #fff;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      word-wrap: break-word;
+    }
+    th {
+      background-color: #4CAF50;
+      color: #fff;
+      text-align: center;
+    }
+    td {
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <img src="Logo.png" alt="Logo Aplikasi" class="logo-left" />
+    <div class="title-container">
+      <h1>ControlTrack</h1>
+      <p>Tools Pemantauan dan Kontrol Audit internal</p>
+    </div>
+  </div>
+  
+  <!-- Tombol Back Back To Home -->
+  <div class="back-button">
+    <a href="index.html"><button>← Back To Home</button></a>
+  </div>
+
+  <!-- Konten utama dibungkus .main-content -->
+  <div class="main-content">
+    <h1>Analisis Laporan Keuangan</h1>
+    
+    <!-- Tabel Analisis Likuiditas -->
+    <h2>Analisis Likuiditas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">Rasio</th>
+          <th style="width:15%;">Hasil Tahun Sebelumnya</th>
+          <th style="width:15%;">Hasil Tahun Berjalan</th>
+          <th style="width:15%;">Interpretasi</th>
+          <th style="width:40%;">Kriteria Penilaian</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr>
+          <td>Current Ratio</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Current Ratio --></td>
+          <td><!-- Isi kriteria penilaian untuk Current Ratio --></td>
+        </tr>
+        <tr>
+          <td>Quick Ratio</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Quick Ratio --></td>
+          <td><!-- Isi kriteria penilaian untuk Quick Ratio --></td>
+        </tr>
+        <tr>
+          <td>Cash Ratio</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Cash Ratio --></td>
+          <td><!-- Isi kriteria penilaian untuk Cash Ratio --></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Tabel Analisis Solvabilitas -->
+    <h2>Analisis Solvabilitas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">Rasio</th>
+          <th style="width:15%;">Hasil Tahun Sebelumnya</th>
+          <th style="width:15%;">Hasil Tahun Berjalan</th>
+          <th style="width:15%;">Interpretasi</th>
+          <th style="width:40%;">Kriteria Penilaian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Debt to Equity Ratio (DER)</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk DER --></td>
+          <td><!-- Isi kriteria penilaian untuk DER --></td>
+        </tr>
+        <tr>
+          <td>Debt to Asset Ratio (DAR)</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk DAR --></td>
+          <td><!-- Isi kriteria penilaian untuk DAR --></td>
+        </tr>
+        <tr>
+          <td>Times Interest Earned Ratio</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Times Interest Earned Ratio --></td>
+          <td><!-- Isi kriteria penilaian untuk Times Interest Earned Ratio --></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Tabel Analisis Profitabilitas -->
+    <h2>Analisis Profitabilitas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">Rasio</th>
+          <th style="width:15%;">Hasil Tahun Sebelumnya</th>
+          <th style="width:15%;">Hasil Tahun Berjalan</th>
+          <th style="width:15%;">Interpretasi</th>
+          <th style="width:40%;">Kriteria Penilaian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Gross Profit Margin</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Gross Profit Margin --></td>
+          <td><!-- Isi kriteria penilaian untuk Gross Profit Margin --></td>
+        </tr>
+        <tr>
+          <td>Net Profit Margin</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Net Profit Margin --></td>
+          <td><!-- Isi kriteria penilaian untuk Net Profit Margin --></td>
+        </tr>
+        <tr>
+          <td>Return on Assets (ROA)</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk ROA --></td>
+          <td><!-- Isi kriteria penilaian untuk ROA --></td>
+        </tr>
+        <tr>
+          <td>Return on Equity (ROE)</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk ROE --></td>
+          <td><!-- Isi kriteria penilaian untuk ROE --></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Tabel Analisis Aktivitas/Efisiensi Operasional -->
+    <h2>Analisis Aktivitas/Efisiensi Operasional</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">Rasio</th>
+          <th style="width:15%;">Hasil Tahun Sebelumnya</th>
+          <th style="width:15%;">Hasil Tahun Berjalan</th>
+          <th style="width:15%;">Interpretasi</th>
+          <th style="width:40%;">Kriteria Penilaian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Inventory Turnover Ratio</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Inventory Turnover Ratio --></td>
+          <td><!-- Isi kriteria penilaian untuk Inventory Turnover Ratio --></td>
+        </tr>
+        <tr>
+          <td>Accounts Receivable Turnover</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Accounts Receivable Turnover --></td>
+          <td><!-- Isi kriteria penilaian untuk Accounts Receivable Turnover --></td>
+        </tr>
+        <tr>
+          <td>Total Asset Turnover</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Total Asset Turnover --></td>
+          <td><!-- Isi kriteria penilaian untuk Total Asset Turnover --></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Tabel Analisis Pertumbuhan -->
+    <h2>Analisis Pertumbuhan</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">Rasio</th>
+          <th style="width:15%;">Hasil Tahun Sebelumnya</th>
+          <th style="width:15%;">Hasil Tahun Berjalan</th>
+          <th style="width:15%;">Interpretasi</th>
+          <th style="width:40%;">Kriteria Penilaian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Growth in Revenue</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Growth in Revenue --></td>
+          <td><!-- Isi kriteria penilaian untuk Growth in Revenue --></td>
+        </tr>
+        <tr>
+          <td>Growth in Net Income</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Growth in Net Income --></td>
+          <td><!-- Isi kriteria penilaian untuk Growth in Net Income --></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Tabel Analisis Arus Kas -->
+    <h2>Analisis Arus Kas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">Rasio</th>
+          <th style="width:15%;">Hasil Tahun Sebelumnya</th>
+          <th style="width:15%;">Hasil Tahun Berjalan</th>
+          <th style="width:15%;">Interpretasi</th>
+          <th style="width:40%;">Kriteria Penilaian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Operating Cash Flow Ratio</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Operating Cash Flow Ratio --></td>
+          <td><!-- Isi kriteria penilaian untuk Operating Cash Flow Ratio --></td>
+        </tr>
+        <tr>
+          <td>Free Cash Flow (FCF)</td>
+          <td><!-- Isi data tahun sebelumnya --></td>
+          <td><!-- Isi data tahun berjalan --></td>
+          <td><!-- Isi interpretasi untuk Free Cash Flow (FCF) --></td>
+          <td><!-- Isi kriteria penilaian untuk Free Cash Flow (FCF) --></td>
+        </tr>
+      </tbody>
+    </table>
+  </div> <!-- End .main-content -->
+
+</body>
+</html>
